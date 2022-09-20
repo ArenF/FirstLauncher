@@ -1,0 +1,22 @@
+{
+	"id": "16631ae1810d47699726809ed03acf69",
+	"name": "Arenia_",
+	"skins": [
+		{
+			"id": "16f9077d-08b6-41da-885d-0d0d8cf3777e",
+			"state": "ACTIVE",
+			"url": "http://textures.minecraft.net/texture/679beb41ac84fd5514367bb72d8a02325f795b21b913b6f2d847e9fd7beb10a3",
+			"variant": "SLIM"
+		}
+	],
+	"capes": [
+		{
+			"id": "5af20372-79e0-4e1f-80f8-6bd8e3135995",
+			"state": "INACTIVE",
+			"url": "http://textures.minecraft.net/texture/2340c0e03dd24a11b15a8b33c2a7e9e32abb2051b2481d0ba7defd635ca7a933",
+			"alias": "Migrator"
+		}
+	],
+	"access_token": "eyJhbGciOiJIUzI1NiJ9.eyJ4dWlkIjoiMjUzNTQxNTE5NzcwOTY4NCIsImFnZyI6IkFkdWx0Iiwic3ViIjoiNmVkMzg2NGMtYmFhMS00NzBhLWE2NmQtMWE3OGIyY2Y0MDRmIiwibmJmIjoxNjYyOTU4NDQ3LCJhdXRoIjoiWEJPWCIsInJvbGVzIjpbXSwiaXNzIjoiYXV0aGVudGljYXRpb24iLCJleHAiOjE2NjMwNDQ4NDcsImlhdCI6MTY2Mjk1ODQ0NywicGxhdGZvcm0iOiJVTktOT1dOIiwieXVpZCI6IjU2OWY4MDJjOGVkYzNiZWJlMmY3MmU5ZDBlZmUxNWZmIn0.6nTwJXqvvI1gX-P0s-l-qnppTjAcadNs9_PQi-giDi8",
+	"refresh_token": "M.R3_BAY.-CVAFDTaJNQzXGhztX9QT2*NPe9!cjOopAm2DMJmEZjr8UYzVtAPPHsieHYo7mR3X8O1J92j68czcxnjBpi4aoab8pPEaqcDx2D!psLoYtipEs9oQChUknkc3VG!mXXPLCCPOPs4ufcDoXluY5pvc1Eaa18IRSYSHaf61f6Zf2RQ1V*MplbAnYi84u05JhAZjRNKhhYL1fjnfn4DosrVnghqC0lrp2AcPeU8*8oRpSlnvCty98FSd*mOdQseLlPsv!5P6v7DLcQBp6u00oyyZSH2Jyj8uadJCGZc2k*Cv3o1D3zyLhLI2cfwJ2dE9rgbMBg$$"
+}

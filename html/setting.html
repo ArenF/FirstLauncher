@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setting Page</title>
+
+    <link rel="stylesheet" href="./css/sidenav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="./css/toggle-switch.css">
+    <link rel="stylesheet" href="./css/navbar-image-show.css">
+    <link rel="stylesheet" href="./css/jvm-setting-form.css">
+</head>
+<body>
+    <div class="sidenav">
+        <a href="./main.html">Main</a>
+        <a href="./mod.html">Mods</a>
+        <button class="dropdown-btn">
+            Sets<i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="#">Set 1</a>
+            <a href="#">Set 2</a>
+            <a href="#">Set 3</a>
+        </div>
+        <a href="./install.html">Versions</a>
+        <a href="./setting.html">Settings</a>
+
+        <script src="./js/sidenav-btn.js"></script>
+    </div>
+
+    <div class="main">
+        <div class="navbar">
+            <a href="#skin" onclick='myFunction(1)'>Skin</a>
+            <a href="#jvm" onclick='myFunction(2)'>JVM</a>
+            <a href="#other" onclick='myFunction(3)'>Other</a>
+
+            <script src="./js/navbar.js"></script>
+        </div>
+
+        <div class="content">
+            <div id="skin">
+                <!-- 스킨 바꾸기 -->
+                <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+                <div class="file-upload">
+                  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+
+                  <div class="image-upload-wrap">
+                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                    <div class="drag-text">
+                      <h3>Drag and drop a file or select add Image</h3>
+                    </div>
+                  </div>
+                  <div class="file-upload-content">
+                    <img class="file-upload-image" src="#" alt="your image" />
+                    <div class="image-title-wrap">
+                      <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                    </div>
+                  </div>
+                </div>
+
+                <script src="./js/image-show.js"></script>
+            </div>
+    
+            <div id="jvm">
+                <div class="group">
+                    <input type="text" pattern="^[0-9]+[MG]?" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>JVM Maximum</label>
+                </div>
+                <div class="group">
+                    <input type="text" pattern="^[0-9]+[MG]?" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>JVM Minimum</label>
+                </div>
+                <button class="set" role="button">Start Set</button>
+            </div>
+    
+            <div id="other">
+    
+            </div>
+        </div>
+
+        <script>
+            // Skin jvm other 값 초기화
+            document.getElementById("skin").style.display = "block";
+            document.getElementById("jvm").style.display = "none";
+            document.getElementById("other").style.display = "none";
+        </script>
+    </div>
+</body>
+</html>

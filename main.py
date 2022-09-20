@@ -1,0 +1,77 @@
+from cefpython3 import cefpython as cef
+import minecraft_launcher_lib
+import platform
+import sys
+import threading
+import client.handlers as handler
+import client.authorization as authorization
+import client.minecraft as minecraft
+
+def main():
+    check_version()
+    sys.excepthook = cef.ExceptHook
+    
+    cef.Initialize()
+    browser = cef.CreateBrowserSync(url='https://www.google.com/', 
+                                    window_title='AFTER Launcher')
+    set_javascriptbindings(browser=browser)
+    set_global_handlers(browser=browser)
+    cef.MessageLoop()
+    cef.Shutdown()
+    
+    
+def check_version():
+    ver = cef.GetVersion()
+    print("[tutorial.py] CEF Python {ver}".format(ver=ver["version"]))
+    print("[tutorial.py] Chromium {ver}".format(ver=ver["chrome_version"]))
+    print("[tutorial.py] CEF {ver}".format(ver=ver["cef_version"]))
+    print("[tutorial.py] Python {ver} {arch}".format(
+           ver=platform.python_version(),
+           arch=platform.architecture()[0]))
+    assert cef.__version__ >= "57.0", "CEF Python v57.0+ required to run this"
+    
+class External():
+    target_dir_path = ''
+    def __init__(self, browser) -> None:
+        self.browser = browser
+    
+    
+
+
+def set_javascriptbindings(browser):
+    bindings = cef.JavascriptBindings(
+        bindToFrames=False, bindToPopups=False)
+    # 마크, 로그인 관련 데이터
+    bindings.SetProperty("get_minecraft_versions", minecraft.VersionControl.get_versions_on_release())
+    bindings.SetProperty("get_installed_versions", minecraft.VersionControl.get_versions_installed())
+    bindings.SetProperty("get_login_link", authorization.get_login())
+    bindings.SetProperty("has_login_data", authorization.has_login_data())
+    bindings.SetProperty("get_files", minecraft.get_mod_files())
+    # 프로그레스바 변수 설정
+    pgbar = minecraft.ProgressBar()
+    pgbar.set_browser(browser=browser)
+    
+    # 파이썬 프린팅, 포지, 바닐라 다운받기
+    bindings.SetFunction("py_print", print_console)
+    bindings.SetFunction("generate_forge", minecraft.Forge.threading_forge_version)
+    bindings.SetFunction("generate_vanilla", minecraft.VersionControl.threading_gen_version)
+    
+    bindings.SetFunction("launcher", minecraft.launching)
+    
+    browser.SetJavascriptBindings(bindings)
+
+def set_global_handlers(browser):
+    client_handlers = handler.get_client_handlers()
+    for handlers in client_handlers:
+        browser.SetClientHandler(handlers)
+        
+
+    
+def print_console(tellraw):
+    print(tellraw)
+
+if __name__ == "__main__":
+    thread = threading.Thread(target=main, args=())
+    thread.start()
+    thread.join() 
+    
