@@ -1,24 +1,31 @@
+import base64
 from cefpython3 import cefpython as cef
 import minecraft_launcher_lib
 import platform
 import sys
+import os
 import threading
 import client.handlers as handler
 import client.authorization as authorization
 import client.minecraft as minecraft
 
 def main():
+    
+    # reading_html = ""
+    # with open("./html/main.html", "r", encoding="utf-8") as f:
+    #     reading_html = f.read()
+    
+    abspath = 'file://' + str(os.path.abspath('./')) + '\html\main.html'
+    
     check_version()
     sys.excepthook = cef.ExceptHook
-    
     cef.Initialize()
-    browser = cef.CreateBrowserSync(url='https://www.google.com/', 
+    browser = cef.CreateBrowserSync(url=abspath, 
                                     window_title='AFTER Launcher')
     set_javascriptbindings(browser=browser)
     set_global_handlers(browser=browser)
     cef.MessageLoop()
     cef.Shutdown()
-    
     
 def check_version():
     ver = cef.GetVersion()
@@ -34,6 +41,10 @@ class External():
     target_dir_path = ''
     def __init__(self, browser) -> None:
         self.browser = browser
+        
+    def has_login_data(self):
+        has = authorization.has_login_data()
+        self.browser.ExecuteFunction('login_page', has)
     
     
 
@@ -42,10 +53,11 @@ def set_javascriptbindings(browser):
     bindings = cef.JavascriptBindings(
         bindToFrames=False, bindToPopups=False)
     # 마크, 로그인 관련 데이터
+    external = External(browser=browser)
     bindings.SetProperty("get_minecraft_versions", minecraft.VersionControl.get_versions_on_release())
     bindings.SetProperty("get_installed_versions", minecraft.VersionControl.get_versions_installed())
     bindings.SetProperty("get_login_link", authorization.get_login())
-    bindings.SetProperty("has_login_data", authorization.has_login_data())
+    bindings.SetFunction("has_login_data", external.has_login_data)
     bindings.SetProperty("get_files", minecraft.get_mod_files())
     # 프로그레스바 변수 설정
     pgbar = minecraft.ProgressBar()

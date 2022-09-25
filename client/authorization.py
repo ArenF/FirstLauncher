@@ -1,5 +1,7 @@
+from ast import arg
 import minecraft_launcher_lib
 import json
+import threading
 import os
 
 CLIENT_ID = "dd82773a-d6be-47c6-82f7-30ff816cb255"
@@ -17,6 +19,12 @@ def login_complete(login_url):
     login_data = minecraft_launcher_lib.microsoft_account.complete_login(client_id=CLIENT_ID, client_secret=CLIENT_SECRET,
                                                             redirect_uri=REDIRECT_URI, auth_code=auth_code)
     file_path = "./client/data/login_data.json"
+    
+    try:
+        if not os.path.exists('./client/data'):
+            os.makedirs('./client/data')
+    except:
+        print("Error: Failed to create the directory")
 
     with open(file_path, 'w', encoding='utf-8') as file:
         json.dump(login_data, file, indent="\t")
@@ -25,6 +33,10 @@ def login_complete(login_url):
     
     minecraft_launcher_lib.microsoft_account.complete_refresh(client_id=CLIENT_ID, client_secret=CLIENT_SECRET,
                                                               redirect_uri=REDIRECT_URI, refresh_token=REFRESH_TOKEN)
+    
+def threading_login(login_url):
+    t = threading.Thread(target=login_complete, args=(login_url,))
+    t.start()
     
 def has_login_data():
     try:

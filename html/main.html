@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Main Page</title>
+  
   <link rel="stylesheet" href="./css/sidenav.css">
   <link rel="stylesheet" href="./css/main-fade.css">
   <link rel="stylesheet" href="./css/installList-filter.css">
@@ -32,18 +33,22 @@
       <!-- <img src="./resource/three.png" alt="Background" style="width:100%; height:100%;"> -->
       <div class="text-block">
         <!-- HTML !-->
-        <button class="button-85" role="button" onclick="login_page()">Start Game</button>
+        <button class="button-85" role="button" onclick="execute_login_data()">Start Game</button>
         <p>What a Beautiful Watch</p>
       </div>
       <script>
         var link = "./login.html";
   
-        function login_page() {
-          if (has_login_data == false) {
+        function login_page(has) {
+          if (has == false) {
             location.href = link;
           } else {
             document.getElementById('id03').style.display = 'block';
           }
+        }
+
+        function execute_login_data() {
+          has_login_data();
         }
       </script>
     </div>
@@ -94,6 +99,7 @@
 
     function launching(ver) {
       launcher(ver);
+      document.getElementById('id03').style.display='none';
     }
   </script>
 
