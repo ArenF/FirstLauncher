@@ -1,4 +1,5 @@
 import base64
+from subprocess import call
 from cefpython3 import cefpython as cef
 import minecraft_launcher_lib
 import platform
@@ -45,6 +46,14 @@ class External():
     def has_login_data(self):
         has = authorization.has_login_data()
         self.browser.ExecuteFunction('login_page', has)
+        
+    def set_minecraft_versions(self, func):
+        versions = minecraft.VersionControl.get_versions_on_release()
+        self.browser.ExecuteFunction('call_minecraft_versions', versions, func)
+    
+    def set_installed_versions(self, func):
+        versions = minecraft.VersionControl.get_versions_installed()
+        self.browser.ExecuteFunction('call_installed_versions', versions, func)
     
     
 
@@ -54,10 +63,10 @@ def set_javascriptbindings(browser):
         bindToFrames=False, bindToPopups=False)
     # 마크, 로그인 관련 데이터
     external = External(browser=browser)
-    bindings.SetProperty("get_minecraft_versions", minecraft.VersionControl.get_versions_on_release())
-    bindings.SetProperty("get_installed_versions", minecraft.VersionControl.get_versions_installed())
-    bindings.SetProperty("get_login_link", authorization.get_login())
     bindings.SetFunction("has_login_data", external.has_login_data)
+    bindings.SetFunction("set_minecraft_versions", external.set_minecraft_versions)
+    bindings.SetFunction("set_installed_versions", external.set_installed_versions)
+    bindings.SetProperty("get_login_link", authorization.get_login())
     bindings.SetProperty("get_files", minecraft.get_mod_files())
     # 프로그레스바 변수 설정
     pgbar = minecraft.ProgressBar()

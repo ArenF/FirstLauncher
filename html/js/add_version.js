@@ -1,29 +1,16 @@
 
-function add_all_list(call) {
-    //마인크래프트 버전 리스트를 versions 변수에 저장
-    var versions = get_minecraft_versions;
-    const myUL = document.getElementById("myUL");
 
-    for (var i = 0; i < myUL.children.length; i++) {
-      myUL.children[i].remove();
-    }
-
-    for (var i = 0; i < versions.length; i++) {
-      const li = document.createElement("li");
-      const a = document.createElement("a");
-      a.setAttribute("onclick",call + "(\'" + versions[i] + "\')");
-      const textNode = document.createTextNode('' + versions[i]);
-      a.appendChild(textNode);
-      li.appendChild(a);
-
-      myUL.appendChild(li);
-    }
+function call_minecraft_versions(versions, func) {
+  const myUL = document.getElementById("myUL");
+  createLists(myUL, versions, func);
 }
 
-function add_installed_list(call) {
-  var versions = get_installed_versions;
+function call_installed_versions(versions, func) {
   const myUL = document.getElementById("myUL");
+  createLists(myUL, versions, func);
+}
 
+function createLists(myUL, versions, func) {
   for (var i = 0; i < myUL.children.length; i++) {
     myUL.children[i].remove();
   }
@@ -31,7 +18,7 @@ function add_installed_list(call) {
   for (var i = 0; i < versions.length; i++) {
     const li = document.createElement("li");
     const a = document.createElement("a");
-    a.setAttribute("onclick",call + "(\'" + versions[i] + "\')");
+    a.setAttribute("onclick", func + "(\'" + versions[i] + "\')");
     const textNode = document.createTextNode('' + versions[i]);
     a.appendChild(textNode);
     li.appendChild(a);
@@ -39,3 +26,4 @@ function add_installed_list(call) {
     myUL.appendChild(li);
   }
 }
+
