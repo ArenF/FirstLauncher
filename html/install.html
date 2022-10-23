@@ -44,6 +44,7 @@
               <div class="clearfix">
                 <button type="button" class="cacelbtn" onclick="installVanilla()">Vanilla</button>
                 <button type="button" class="deletebtn" onclick="installForge()">Forge</button>
+                <button type="button" class="deletebtn" onclick="installFabric()">Fabric</button>
               </div>
             </div>
           </form>
@@ -79,9 +80,16 @@
             document.getElementById('id01').style.display = 'none';
             document.getElementById('id02').style.display = 'block';
             var str = document.getElementById('ver').childNodes[0].textContent;
-            generate_vanilla(str, );
-            pg_index = 0;
-            move();
+            generate_vanilla(str);
+            checking_complete();
+          }
+
+          function installFabric() {
+            document.getElementById('id01').style.display = 'none';
+            document.getElementById('id02').style.display = 'block';
+            var str = document.getElementById('ver').childNodes[0].textContent;
+            generate_fabric(str);
+            checking_complete();
           }
 
           function installForge() {
@@ -91,8 +99,21 @@
 
           function click_to_install(version) {
             document.getElementById('id01').style.display = 'block';
-            const textNode = document.createTextNode(version);
-            document.getElementById('ver').appendChild(textNode);
+            document.getElementById('ver').textContent = version;
+          }
+
+          function checking_complete() {
+            doc = document.getElementById('status_text');
+            check_complete = setInterval(function() {
+              if (doc.textContent == "Installation complete") {
+                close_id02();
+                clear_complete(check_complete);
+              }
+            }, 1000);
+          }
+
+          function clear_complete(complete) {
+            clearInterval(complete);
           }
 
           function writingStatus(status) {
@@ -137,7 +158,6 @@
           function removeChild(id) {
             var child = document.getElementById(id).childNodes[0];
             document.getElementById(id).removeChild(child);
-            
           }
 
           function close_id02() {
@@ -145,9 +165,6 @@
           }
           
           function close_id01() {
-            //버전을 갖는 데이터의 값을 지워버린다.
-            removeChild('ver');
-
             //modal을 지운다.
             document.getElementById('id01').style.display = 'none';
           } 

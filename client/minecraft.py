@@ -8,6 +8,9 @@ import os
 
 minecraft_dir = minecraft_launcher_lib.utils.get_minecraft_directory()
 
+def get_minecraft_dir():
+    return minecraft_dir
+
 def get_mod_files():
     try:
         path = minecraft_dir + '\mods'
@@ -89,11 +92,21 @@ class VersionControl:
 
 class Fabric:
     
-    def generate_forge_version(select_ver):
-        fabric_version = minecraft_launcher_lib.fabric.install_fabric()
+    def threading_fabric_version(version:str):  
+        t = threading.Thread(target=Fabric.generate_fabric_version, args=(version,))
+        t.start()
+    
+    def generate_fabric_version(select_ver):
+        try:
+            if select_ver not in VersionControl.get_versions_installed():
+                print("You should install the minecraft version first!")
+                return
+            pgbar = ProgressBar()
+            minecraft_launcher_lib.fabric.install_fabric(select_ver, minecraft_dir, callback=pgbar.get_callbacks())
+        except:
+            print("It has error occured")
 
 class Forge:
-    
     def threading_forge_version(select_ver:str):
         t = threading.Thread(target=Forge.generate_forge_version, args=(select_ver,))
         t.start()
@@ -190,26 +203,3 @@ def launching(version):
         l.set_options(options=option)
     l.launch_with_thread()
         
-        
-if __name__ == "__main__":
-    # l = Launcher(minecraft_dir=minecraft_dir, version="1.12.2")
-    # option = {
-    #     "username": "",
-    #     "uuid": "",
-    #     "token": "",
-    #     "enableLoggingConfig": False,
-    #     "disableMultiplayer": False
-    # }
-    # with open("./client/data/login_data.json", 'r', encoding="utf-8") as f:
-    #     opt = json.load(f)
-    
-    # option["username"] = opt["name"]
-    # option["uuid"] = opt["id"]
-    # option["token"] = opt["access_token"]
-    
-    # print(option)
-    # l.set_options(options=option)
-    # l.launch()
-    result = VersionControl.get_versions_installed()
-
-    print(result)

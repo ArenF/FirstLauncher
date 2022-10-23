@@ -1,0 +1,32 @@
+.mod-navbar {
+    width: 100%;
+    background-color: #89aae4;
+    overflow: auto;
+}
+
+.mod-navbar a {
+    float: left;
+    padding: 17px 3px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.mod-navbar i {
+    float: left;
+    padding: 17px 2px;
+    color: #ffffff;
+    text-decoration: solid;
+    font-size: 17px;
+}
+
+.mod-navbar a:hover {
+    background-color: #5780c6;
+}
+
+@media screen and (max-width: 500px) {
+    .mod-navbar a {
+        float: none;
+        display: block;
+    }
+}

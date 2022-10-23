@@ -1,5 +1,8 @@
 import base64
+import shutil
 from subprocess import call
+import tkinter
+from tkinter.filedialog import askdirectory
 from cefpython3 import cefpython as cef
 import minecraft_launcher_lib
 import platform
@@ -55,6 +58,13 @@ class External():
         versions = minecraft.VersionControl.get_versions_installed()
         self.browser.ExecuteFunction('call_installed_versions', versions, func)
     
+    def set_mod_files(self):
+        mod_files = minecraft.get_mod_files()
+        self.browser.ExecuteFunction('call_mod_files', mod_files)
+    
+    # def move_file(self, file):
+        
+        
     
 
 
@@ -66,8 +76,9 @@ def set_javascriptbindings(browser):
     bindings.SetFunction("has_login_data", external.has_login_data)
     bindings.SetFunction("set_minecraft_versions", external.set_minecraft_versions)
     bindings.SetFunction("set_installed_versions", external.set_installed_versions)
+    bindings.SetFunction("set_mod_files", external.set_mod_files)
     bindings.SetProperty("get_login_link", authorization.get_login())
-    bindings.SetProperty("get_files", minecraft.get_mod_files())
+    bindings.SetProperty("get_minecraft_dir", minecraft.get_minecraft_dir())
     # 프로그레스바 변수 설정
     pgbar = minecraft.ProgressBar()
     pgbar.set_browser(browser=browser)
@@ -76,7 +87,9 @@ def set_javascriptbindings(browser):
     bindings.SetFunction("py_print", print_console)
     bindings.SetFunction("generate_forge", minecraft.Forge.threading_forge_version)
     bindings.SetFunction("generate_vanilla", minecraft.VersionControl.threading_gen_version)
+    bindings.SetFunction("generate_fabric", minecraft.Fabric.threading_fabric_version)
     
+    # 파이썬 마크 런칭
     bindings.SetFunction("launcher", minecraft.launching)
     
     browser.SetJavascriptBindings(bindings)
@@ -85,8 +98,6 @@ def set_global_handlers(browser):
     client_handlers = handler.get_client_handlers()
     for handlers in client_handlers:
         browser.SetClientHandler(handlers)
-        
-
     
 def print_console(tellraw):
     print(tellraw)
@@ -94,5 +105,5 @@ def print_console(tellraw):
 if __name__ == "__main__":
     thread = threading.Thread(target=main, args=())
     thread.start()
-    thread.join() 
+    thread.join()
     
