@@ -94,7 +94,13 @@
 
           function installForge() {
             var str = document.getElementById('ver').childNodes[0].textContent;
-            generate_forge(str);
+            if (generate_forge(str) = null) {
+              forge = Forge(str)
+              
+            } else {
+              generate_forge(str);
+            }
+
           }
 
           function click_to_install(version) {

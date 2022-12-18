@@ -1,4 +1,3 @@
-from ensurepip import version
 import json
 import subprocess
 import threading
@@ -57,7 +56,7 @@ class ProgressBar():
     
     
     
-class VersionControl:
+class VersionControl():
     
     # 화면에 띄울 버전 리스트를 구함.
     def get_versions_on_release() -> List[str]:
@@ -79,7 +78,7 @@ class VersionControl:
             result.append(i.get('id'))
         return result
     
-    def generate_version(version):
+    def generate_version(version:str):
         pgbar = ProgressBar()
         minecraft_launcher_lib.install.install_minecraft_version(
             versionid=version,  minecraft_directory=minecraft_dir,
@@ -90,7 +89,7 @@ class VersionControl:
         t.start()
 
 
-class Fabric:
+class Fabric():
     
     def threading_fabric_version(version:str):  
         t = threading.Thread(target=Fabric.generate_fabric_version, args=(version,))
@@ -106,7 +105,7 @@ class Fabric:
         except:
             print("It has error occured")
 
-class Forge:
+class Forge():
     def threading_forge_version(select_ver:str):
         t = threading.Thread(target=Forge.generate_forge_version, args=(select_ver,))
         t.start()

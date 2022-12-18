@@ -1,172 +1,316 @@
 
-[2022-10-23 01:59:03] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 371, in <module>
+[2022-12-03 21:39:56] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 217, in <module>
     main()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 44, in main
-    app = CefApplication(sys.argv)
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 223, in __init__
-    self.setupIcon()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 241, in setupIcon
-    "resources", "{0}.png".format(sys.argv[1]))
-IndexError: list index out of range
-
-
-[2022-10-23 13:24:06] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 325, in <module>
-    main()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 32, in main
-    app = CefApplication(sys.argv)
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 177, in __init__
-    self.setupIcon()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 195, in setupIcon
-    "resources", "{0}.png".format(sys.argv[1]))
-IndexError: list index out of range
-
-
-[2022-10-23 17:32:06] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 84, in closeEvent
-    if self.cef_widget.browser:
-AttributeError: 'MainWindow' object has no attribute 'cef_widget'
-
-
-[2022-10-23 22:39:03] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 238, in <module>
-    main()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 31, in main
-    app = CefApplication(sys.argv)
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 118, in __init__
-    if not cef.GetApplication("external_message_pump"):
-AttributeError: module 'cefpython3.cefpython_py37' has no attribute 'GetApplication'
-
-
-[2022-10-23 22:39:43] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 238, in <module>
-    main()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 31, in main
-    app = CefApplication(sys.argv)
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 120, in __init__
-    self.setupIcon()
-AttributeError: 'CefApplication' object has no attribute 'setupIcon'
-
-
-[2022-10-23 22:41:22] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 246, in <module>
-    main()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 31, in main
-    app = CefApplication(sys.argv)
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 120, in __init__
-    self.setupIcon()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 139, in setupIcon
-    "resources", "{0}.png".format(sys.argv[1]))
-IndexError: list index out of range
-
-
-[2022-10-23 22:42:18] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 243, in <module>
-    main()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 31, in main
-    app = CefApplication(sys.argv)
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 120, in __init__
-    self.setupIcon()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 136, in setupIcon
-    "resources", "{0}.png".format(sys.argv[1]))
-IndexError: list index out of range
-
-
-[2022-10-23 22:43:06] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 242, in <module>
-    main()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 31, in main
-    app = CefApplication(sys.argv)
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 120, in __init__
-    self.setupIcon()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 135, in setupIcon
-    icon_file = os.path.join(os.path.abspath(os.path.dirname("html/resource/icon.png")), "resources", "{0}.png".format(sys.argv[1]))
-IndexError: list index out of range
-
-
-[2022-10-23 22:44:10] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 244, in <module>
-    main()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 31, in main
-    app = CefApplication(sys.argv)
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 120, in __init__
-    self.setupIcon()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 137, in setupIcon
-    "{0}.png".format(sys.argv[1]))
-IndexError: list index out of range
-
-
-[2022-10-23 22:44:24] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 244, in <module>
-    main()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 32, in main
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
     main_window = MainWindow()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 46, in __init__
-    self.setupLayout()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 51, in setupLayout
-    self.navigation_bar = NavigationBar(self.cef_widget)
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 191, in __init__
-    self.back.clicked.connect(self.onBack)
-AttributeError: 'NoneType' object has no attribute 'clicked'
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 70, in setupLayout
+    self.overlay = Overlay(self)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 207, in __init__
+    self.label = QLabel(self)
+RuntimeError: super-class __init__() of type Overlay was never called
 
 
-[2022-10-23 22:49:54] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 272, in <module>
+[2022-12-03 23:17:07] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 221, in <module>
     main()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 32, in main
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
     main_window = MainWindow()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 46, in __init__
-    self.setupLayout()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 51, in setupLayout
-    self.navigation_bar = NavigationBar(self.cef_widget)
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 219, in __init__
-    self.back.clicked.connect(self.onBack)
-AttributeError: 'NoneType' object has no attribute 'clicked'
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(self.centralWidget())
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 209, in __init__
+    self.label = QLabel('000', self)
+RuntimeError: super-class __init__() of type Overlay was never called
 
 
-[2022-10-23 22:51:32] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 277, in <module>
+[2022-12-03 23:18:23] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 220, in <module>
     main()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 32, in main
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
     main_window = MainWindow()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 46, in __init__
-    self.setupLayout()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 51, in setupLayout
-    self.navigation_bar = NavigationBar(self.cef_widget)
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 219, in __init__
-    self.back.clicked.connect(self.onBack)
-AttributeError: 'NoneType' object has no attribute 'clicked'
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(self.centralWidget())
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 209, in __init__
+    self.setAlignment(Qt.AlignCenter | Qt.AlignVCenter)
+RuntimeError: super-class __init__() of type Overlay was never called
 
 
-[2022-10-23 22:52:52] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 277, in <module>
+[2022-12-03 23:19:39] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 220, in <module>
     main()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 32, in main
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
     main_window = MainWindow()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 46, in __init__
-    self.setupLayout()
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 51, in setupLayout
-    self.navigation_bar = NavigationBar(self.cef_widget)
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 219, in __init__
-    self.back.clicked.connect(self.onBack)
-AttributeError: 'NoneType' object has no attribute 'clicked'
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(QLabel('000', self.centralWidget()))
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 209, in __init__
+    self.setAlignment(Qt.AlignCenter | Qt.AlignVCenter)
+RuntimeError: super-class __init__() of type Overlay was never called
 
 
-[2022-10-23 22:55:23] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 85, in closeEvent
-    self.clear_browser_refereneces()
-AttributeError: 'MainWindow' object has no attribute 'clear_browser_refereneces'
+[2022-12-03 23:21:29] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 220, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(self.centralWidget())
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 209, in __init__
+    self.label = QLabel('000', self)
+RuntimeError: super-class __init__() of type Overlay was never called
 
 
-[2022-10-23 22:56:09] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 85, in closeEvent
-    self.clear_browser_refereneces()
-AttributeError: 'MainWindow' object has no attribute 'clear_browser_refereneces'
+[2022-12-03 23:24:27] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 224, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(self.centralWidget())
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 209, in __init__
+    palette = QPalette(self.palette())
+RuntimeError: super-class __init__() of type Overlay was never called
 
 
-[2022-10-23 22:56:48] Traceback (most recent call last):
-  File "e:/vsDevelopment/FirstLauncher/qt.py", line 85, in closeEvent
-    self.clear_browser_refereneces()
-AttributeError: 'MainWindow' object has no attribute 'clear_browser_refereneces'
+[2022-12-04 12:56:54] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 223, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(self.centralWidget())
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 208, in __init__
+    palette = QPalette(self.palette())
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 12:57:37] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 220, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(self.centralWidget())
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 207, in __init__
+    self.label = QLabel('000', self)
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 12:58:09] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 220, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(self.centralWidget())
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 207, in __init__
+    self.label = QLabel('000', self)
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 13:09:18] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 225, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(self.centralWidget())
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 208, in __init__
+    palette = QPalette(self.palette())
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 13:11:16] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 225, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(self.cef_widget)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 208, in __init__
+    palette = QPalette(self.palette())
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 13:21:03] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 233, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(self.centralWidget())
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 211, in __init__
+    self.setWindowFlags(Qt.FramelessWindowHint)
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 13:21:45] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 233, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(layout)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 211, in __init__
+    self.setWindowFlags(Qt.FramelessWindowHint)
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 13:21:54] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 233, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(self.cef_widget)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 211, in __init__
+    self.setWindowFlags(Qt.FramelessWindowHint)
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 13:22:03] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 232, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(self.cef_widget)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 211, in __init__
+    self.setAttribute(Qt.WA_TranslucentBackground)
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 13:26:21] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 212, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(self.centralWidget())
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 207, in __init__
+    self.setAttribute(Qt.WA_TranslucentBackground, True)
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 13:26:32] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 211, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(self.centralWidget())
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 207, in __init__
+    self.setAttribute(Qt.WA_NoSystemBackground, True)
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 13:27:45] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 211, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 84, in setupLayout
+    self.overlay = Overlay(self.centralWidget())
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 207, in __init__
+    self.setAttribute(Qt.WA_NoSystemBackground, True)
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 13:29:34] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 211, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 73, in setupLayout
+    layout.addWidget(self.overlay, 0, 0, 1, 0)
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 13:29:41] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 211, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 73, in setupLayout
+    layout.addWidget(self.overlay, 0, 0)
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 13:30:46] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 211, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 70, in setupLayout
+    self.overlay = Overlay(self.centralWidget())
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 207, in __init__
+    self.setAttribute(Qt.WA_NoSystemBackground, True)
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 13:32:27] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 211, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 70, in setupLayout
+    self.overlay = Overlay(self.centralWidget())
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 207, in __init__
+    self.setAttribute(Qt.WA_NoSystemBackground)
+RuntimeError: super-class __init__() of type Overlay was never called
+
+
+[2022-12-04 13:33:13] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 206, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 34, in main
+    main_window = MainWindow()
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 60, in __init__
+    self.setupLayout(abspath)
+  File "e:/vsDevelopment/FirstLauncher/test.py", line 73, in setupLayout
+    layout.addWidget(self.overlay, 0, 0)
+AttributeError: 'MainWindow' object has no attribute 'overlay'
 

@@ -19,7 +19,7 @@ setup(
     author = "ALLEN",
     options = {
         "build_exe": {
-        'packages': ["os","sys","ctypes","win32con", "json", "platform", "threading", "minecraft_launcher_lib"],
+        'packages': ["os","sys","ctypes","win32con", "json", "platform", "threading", "minecraft_launcher_lib", "PyQt5"],
         'include_files': CEF_INCLUDES + [('html')],
         'include_msvcr': True,
     }},

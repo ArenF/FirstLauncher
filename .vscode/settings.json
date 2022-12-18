@@ -1,0 +1,10 @@
+{
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportWildcardImportFromLibrary": "none",
+        "reportGeneralTypeIssues": "none",
+        "reportOptionalMemberAccess": "none",
+        "reportInvalidStringEscapeSequence": "none",
+        "reportSelfClsParameterName": "none"
+    }
+}

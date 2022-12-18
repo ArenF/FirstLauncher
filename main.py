@@ -1,8 +1,3 @@
-import base64
-import shutil
-from subprocess import call
-import tkinter
-from tkinter.filedialog import askdirectory
 from cefpython3 import cefpython as cef
 import minecraft_launcher_lib
 import platform
@@ -12,24 +7,44 @@ import threading
 import client.handlers as handler
 import client.authorization as authorization
 import client.minecraft as minecraft
+import client.cefQt as cefqt
 
 def main():
     
-    # reading_html = ""
-    # with open("./html/main.html", "r", encoding="utf-8") as f:
-    #     reading_html = f.read()
-    
     abspath = 'file://' + str(os.path.abspath('./')) + '\html\main.html'
     
-    check_version()
+    # check_version()
+    # sys.excepthook = cef.ExceptHook
+    # cef.Initialize()
+    # browser = cef.CreateBrowserSync(url=abspath, 
+    #                                 window_title='AFTER Launcher')
+    # set_javascriptbindings(browser=browser)
+    # set_global_handlers(browser=browser)
+    # cef.MessageLoop()
+    # cef.Shutdown()
+    cefqt.check_versions()
     sys.excepthook = cef.ExceptHook
-    cef.Initialize()
-    browser = cef.CreateBrowserSync(url=abspath, 
-                                    window_title='AFTER Launcher')
-    set_javascriptbindings(browser=browser)
-    set_global_handlers(browser=browser)
-    cef.MessageLoop()
+    settings = {}
+    if cefqt.MAC:
+        settings["external_message_pump"] = True 
+    
+    cef.Initialize(settings)
+    app = cefqt.CefApplication(sys.argv)
+    main_window = cefqt.MainWindow()
+    main_window.show()
+    main_window.activateWindow()
+    main_window.raise_()
+    browser = main_window.get_browser()
+    
+    set_javascriptbindings(browser)
+    set_global_handlers(browser)
+    app.exec_()
+    if not cef.GetAppSetting("external_message_pump"):
+        app.stopTimer()
+    del main_window
+    del app
     cef.Shutdown()
+    
     
 def check_version():
     ver = cef.GetVersion()
@@ -103,7 +118,6 @@ def print_console(tellraw):
     print(tellraw)
 
 if __name__ == "__main__":
-    thread = threading.Thread(target=main, args=())
-    thread.start()
-    thread.join()
+    main()
+    
     
