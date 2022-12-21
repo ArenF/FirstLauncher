@@ -29,6 +29,7 @@ class WindowClass(QMainWindow, form_class):
         self.setWindowTitle("FIRST LAUNCHER")
         
         # QSizeGrip(self.size_grip)
+        self.float_button = FloatingButton(self)
         
         self.clickedButton()
         
