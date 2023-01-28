@@ -314,3 +314,238 @@ RuntimeError: super-class __init__() of type Overlay was never called
     layout.addWidget(self.overlay, 0, 0)
 AttributeError: 'MainWindow' object has no attribute 'overlay'
 
+
+[2023-01-24 18:30:12] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1384, in mousePressEvent
+    self.parentObject.cefWidget.resize(QSize(1093, 551))
+AttributeError: 'QFrame' object has no attribute 'cefWidget'
+
+
+[2023-01-24 18:39:27] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1599, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1576, in main
+    main_window = WindowClass()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1556, in __init__
+    self.setupUi(self)
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1070, in setupUi
+    self.stackedMain.widget(0).float_button = FloatingButton(self)
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1399, in __init__
+    self.parent(parent)
+TypeError: parent(self): too many arguments
+
+
+[2023-01-24 18:40:37] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1416, in resizeEvent
+    self.update_position()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1405, in update_position
+    parent_rect = self.parent().rect()
+AttributeError: 'NoneType' object has no attribute 'rect'
+
+
+[2023-01-24 18:41:34] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1599, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1576, in main
+    main_window = WindowClass()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1556, in __init__
+    self.setupUi(self)
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1079, in setupUi
+    self.pageManager.setStatus(0)
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1343, in setStatus
+    self.stackedWidget.widget(0).float_button.show()
+AttributeError: 'QWidget' object has no attribute 'float_button'
+
+
+[2023-01-24 18:44:58] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1416, in resizeEvent
+    self.update_position()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1401, in update_position
+    print("data : " + self.parent().viewport().rect())
+AttributeError: 'WindowClass' object has no attribute 'viewport'
+
+
+[2023-01-24 18:48:00] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1416, in resizeEvent
+    self.update_position()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1401, in update_position
+    print("data : " + self.parent().viewport().rect())
+AttributeError: 'WindowClass' object has no attribute 'viewport'
+
+
+[2023-01-24 18:48:34] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1416, in resizeEvent
+    self.update_position()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1401, in update_position
+    print("data : " + self.parent().viewport().rect())
+AttributeError: 'WindowClass' object has no attribute 'viewport'
+
+
+[2023-01-24 18:48:53] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1416, in resizeEvent
+    self.update_position()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1401, in update_position
+    print("data : " + self.parent().viewport().rect())
+AttributeError: 'QWidget' object has no attribute 'viewport'
+
+
+[2023-01-24 18:49:08] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1599, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1576, in main
+    main_window = WindowClass()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1556, in __init__
+    self.setupUi(self)
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1070, in setupUi
+    self.stackedMain.float_button = FloatingButton(parent=Ui_MainWindow)
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1395, in __init__
+    super().__init__(parent)
+TypeError: arguments did not match any overloaded call:
+  QPushButton(parent: QWidget = None): argument 1 has unexpected type 'type'
+  QPushButton(str, parent: QWidget = None): argument 1 has unexpected type 'type'
+  QPushButton(QIcon, str, parent: QWidget = None): argument 1 has unexpected type 'type'
+
+
+[2023-01-24 18:49:19] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1416, in resizeEvent
+    self.update_position()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1401, in update_position
+    print("data : " + self.parent().viewport().rect())
+AttributeError: 'WindowClass' object has no attribute 'viewport'
+
+
+[2023-01-24 18:52:00] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1417, in resizeEvent
+    self.update_position()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1402, in update_position
+    print("data : " + self.parentObject.viewport().rect())
+AttributeError: 'WindowClass' object has no attribute 'viewport'
+
+
+[2023-01-24 18:52:16] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1417, in resizeEvent
+    self.update_position()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1402, in update_position
+    print("data : " + self.parentObject.viewport().rect())
+AttributeError: 'WindowClass' object has no attribute 'viewport'
+
+
+[2023-01-24 18:53:33] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1416, in resizeEvent
+    self.update_position()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1401, in update_position
+    print("data : " + self.parent().viewport().rect())
+AttributeError: 'WindowClass' object has no attribute 'viewport'
+
+
+[2023-01-24 19:00:38] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1417, in resizeEvent
+    self.update_position()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1402, in update_position
+    print("data : " + self.parent().viewport().rect())
+AttributeError: 'WindowClass' object has no attribute 'viewport'
+
+
+[2023-01-24 19:05:01] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1418, in resizeEvent
+    self.parent().floatingButtonClicked.emit()
+AttributeError: 'WindowClass' object has no attribute 'floatingButtonClicked'
+
+
+[2023-01-24 19:05:24] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1418, in resizeEvent
+    self.parent().floatingButtonClicked.emit()
+AttributeError: 'WindowClass' object has no attribute 'floatingButtonClicked'
+
+
+[2023-01-24 19:05:44] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1418, in resizeEvent
+    self.parent().floatingButtonClicked.emit()
+AttributeError: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'emit'
+
+
+[2023-01-24 19:06:30] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1603, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1580, in main
+    main_window = WindowClass()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1560, in __init__
+    self.setupUi(self)
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1099, in setupUi
+    button_clicked(self)
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1423, in button_clicked
+    window.modsButton.clicked.s(lambda: window.pageManager.setStatus(2))
+AttributeError: 'PyQt5.QtCore.pyqtBoundSignal' object has no attribute 's'
+
+
+[2023-01-24 19:07:07] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1418, in resizeEvent
+    self.parent().floatingButtonClicked.emit()
+AttributeError: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'emit'
+
+
+[2023-01-24 19:07:26] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1418, in resizeEvent
+    self.parent().floatingButtonClicked.emit()
+AttributeError: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'emit'
+
+
+[2023-01-24 19:08:28] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1418, in resizeEvent
+    self.parent().floatingButtonClicked.emit(lambda: print("RESIZE"))
+AttributeError: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'emit'
+
+
+[2023-01-24 19:10:02] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1419, in resizeEvent
+    self.parent().floatingButtonClicked.emit()
+AttributeError: 'PyQt5.QtCore.pyqtSignal' object has no attribute 'emit'
+
+
+[2023-01-24 19:17:40] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1560, in resizeEvent
+    self.stackedMain.float_button.update_position()
+AttributeError: 'QStackedWidget' object has no attribute 'float_button'
+
+
+[2023-01-24 19:17:50] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1560, in resizeEvent
+    self.float_button.update_position()
+AttributeError: 'WindowClass' object has no attribute 'float_button'
+
+
+[2023-01-24 19:18:16] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1560, in resizeEvent
+    self.float_button.update_position()
+AttributeError: 'WindowClass' object has no attribute 'float_button'
+
+
+[2023-01-24 19:19:18] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1560, in resizeEvent
+    self.stackedMain.widget(0).float_button.update_position()
+AttributeError: 'QWidget' object has no attribute 'float_button'
+
+
+[2023-01-25 18:01:25] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1608, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1585, in main
+    main_window = WindowClass()
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1565, in __init__
+    self.setupUi(self)
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1048, in setupUi
+    self.retranslateUi(MainWindow)
+  File "e:/vsDevelopment/FirstLauncher/ui_launcher_design.py", line 1117, in retranslateUi
+    self.mainImage.setText("")
+AttributeError: 'WindowClass' object has no attribute 'mainImage'
+
+
+[2023-01-27 04:58:57] Traceback (most recent call last):
+  File "e:/vsDevelopment/FirstLauncher/main.py", line 121, in <module>
+    main()
+  File "e:/vsDevelopment/FirstLauncher/main.py", line 39, in main
+    set_javascriptbindings(browser)
+  File "e:/vsDevelopment/FirstLauncher/main.py", line 98, in set_javascriptbindings
+    pgbar = minecraft.ProgressBar()
+AttributeError: module 'client.minecraft' has no attribute 'ProgressBar'
+

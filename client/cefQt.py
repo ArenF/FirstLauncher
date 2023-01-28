@@ -11,7 +11,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
 WindowUtils = cef.WindowUtils()
-abspath = 'file://' + str(os.path.abspath('./')) + '\html\main.html'
+abspath = 'file://' + str(os.path.abspath('./')) + '\html\login.html'
 
 WIDTH = 800
 HEIGHT = 600

@@ -29,24 +29,63 @@ class WindowClass(QMainWindow, form_class):
         self.setWindowTitle("FIRST LAUNCHER")
         
         # QSizeGrip(self.size_grip)
-        self.float_button = FloatingButton(self)
+        
+        self.stackedMain.float_button = FloatingButton(self)
+        self.stackedMain.float_button.clicked.connect(lambda: self.showMinimized())
+        
+        
+        # self.float_button = FloatingButton(self)
+        # self.float_button.clicked.connect(self.close())
         
         self.clickedButton()
         
         self.show()
         
+    def on_test(self):
+        print("Hello world")
+        
     def clickedButton(self):
         # self.minimize_window_button.clicked.connect(lambda: self.showMinimized())
         # self.close_window_button.clicked.connect(lambda: self.close())
         # self.exit_button.clicked.connect(lambda: self.close())
-        pass
+        self.loginButton.clicked.connect(
+            lambda: self.stackedMain.setCurrentWidget(self.loginPage))
+        self.modsButton.clicked.connect(
+            lambda: self.stackedMain.setCurrentWidget(self.modsPage))
+        self.installButton.clicked.connect(
+            lambda: self.stackedMain.setCurrentWidget(self.installPage))
+        self.settingButton.clicked.connect(
+            lambda: self.stackedMain.setCurrentWidget(self.settingPage))
+        
+class PageManager():
+    
+    def __init__(self) -> None:
+        super().__init__()
+        self.status:str = "main"
+        
+    def set_status(self, status:str):
+        self.status = status
+        self.status_event()
+    
+    def status_event(self):
+        if self.status != "main":
+            # 메인이 아닐 때 버튼은 메인으로 바꾼다.
+            self.loginButton.setText("Main")
+            self.loginButton.clicked.connect(
+                lambda: self.stackedMain.setCurrentWidget(self.mainPage))
+        else:
+            self.loginButton.setText("Login")
+            self.loginButton.clicked.connect(
+                lambda: self.stackedMain.setCurrentWidget(self.loginPage)
+            )
 
 class FloatingButton(QPushButton):
     
     def __init__(self, parent):
         super().__init__(parent)
-        self.paddingLeft = 5
-        self.paddingTop = 5
+        self.paddingLeft = 30
+        self.paddingTop = 25
+        self.setText("START")
         
     def update_position(self):
         if hasattr(self.parent(), 'viewport'):
@@ -58,15 +97,12 @@ class FloatingButton(QPushButton):
             return
         
         x = parent_rect.width() - self.width() - self.paddingLeft
-        y = self.paddingTop
+        y = parent_rect.height() - self.height() - self.paddingTop
         self.setGeometry(x, y, self.width(), self.height())
         
     def resizeEvent(self, event):
         super().resizeEvent(event)
         self.update_position()
-
-    def mousePressEvent(self, event) -> None:
-        self.parent().floatingButtonClicked.emit()
 
         
         

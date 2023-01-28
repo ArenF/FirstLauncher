@@ -1,59 +1,26 @@
 import json
 import subprocess
-import threading
 from typing import Any, List
 import minecraft_launcher_lib
 import os
+import threading
 
 minecraft_dir = minecraft_launcher_lib.utils.get_minecraft_directory()
+mod_path = minecraft_dir + '\mods'
 
 def get_minecraft_dir():
     return minecraft_dir
 
-def get_mod_files():
+def get_mod_path():
+    return mod_path
+    
+def get_dir_files(path):
     try:
-        path = minecraft_dir + '\mods'
+        
         return os.listdir(path)
     except:
-        print("Error: we cannot find any path to get mod file")
-
-    
-class ProgressBar():
-    
-    def __new__(cls, *args, **kwargs):
-        if not hasattr(cls, "_instance"):
-            cls._instance = super().__new__(cls)
-            
-        return cls._instance
-    
-    def __init__(self) -> None:
-        pass
-        
-    def set_browser(self, browser):
-        self.browser = browser
-        self.current_max = 0
-        
-    def get_browser(self):
-        return self.browser
-    
-    def get_callbacks(self):
-        self.callbacks = {
-            "setStatus": self.set_status,
-            "setProgress": self.set_progress,
-            "setMax": self.set_max
-        }
-        return self.callbacks
-        
-    def set_status(self, status: str):
-        self.browser.ExecuteFunction('writingStatus', status)
-    
-    def set_progress(self, progress: int):
-        pg = (progress / self.current_max) * 100
-        self.browser.ExecuteFunction('setStatusProgress', pg)
-    
-    def set_max(self, new_max: int):
-        self.current_max = new_max
-    
+        print("Error: we cannot find any path to get file")
+        return []    
     
     
 class VersionControl():
@@ -78,37 +45,31 @@ class VersionControl():
             result.append(i.get('id'))
         return result
     
-    def generate_version(version:str):
-        pgbar = ProgressBar()
+    def generate_version(version:str, callbacks):
         minecraft_launcher_lib.install.install_minecraft_version(
             versionid=version,  minecraft_directory=minecraft_dir,
-            callback=pgbar.get_callbacks())
+            callback=callbacks)
     
-    def threading_gen_version(version:str):
-        t = threading.Thread(target=VersionControl.generate_version, args=(version,))
-        t.start()
+    def threading_version(version:str, callbacks):
+        thread = threading.Thread(target=VersionControl.generate_version, args=(version, callbacks))
+        thread.start()
+    
 
 
 class Fabric():
     
-    def threading_fabric_version(version:str):  
-        t = threading.Thread(target=Fabric.generate_fabric_version, args=(version,))
-        t.start()
-    
-    def generate_fabric_version(select_ver):
+    def generate_fabric_version(select_ver, callbacks):
         try:
+            
             if select_ver not in VersionControl.get_versions_installed():
                 print("You should install the minecraft version first!")
                 return
-            pgbar = ProgressBar()
-            minecraft_launcher_lib.fabric.install_fabric(select_ver, minecraft_dir, callback=pgbar.get_callbacks())
+            minecraft_launcher_lib.fabric.install_fabric(select_ver, minecraft_dir, callback=callbacks)
         except:
+            
             print("It has error occured")
 
 class Forge():
-    def threading_forge_version(select_ver:str):
-        t = threading.Thread(target=Forge.generate_forge_version, args=(select_ver,))
-        t.start()
     
     def generate_forge_version(select_ver):
         forge_version = minecraft_launcher_lib.forge.find_forge_version(select_ver)
@@ -171,10 +132,6 @@ class Launcher():
         
     def get_options(self):
         return self.options
-    
-    def launch_with_thread(self):
-        t = threading.Thread(target=self.launch, args=())
-        t.start()
     
     def launch(self):
         v = self.version
