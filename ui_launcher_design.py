@@ -1361,7 +1361,7 @@ class MainImage(QLabel):
         
             
 
-class BetweenButton(QPushButton):
+class BetweenButton(QPushButton): 
     def __init__(self, parent, defaultName, otherName):
         super().__init__(parent)
         self.parentObject = parent
