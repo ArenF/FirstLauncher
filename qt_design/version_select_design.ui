@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VersionSelectWindow</class>
+ <widget class="QMainWindow" name="VersionSelectWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>683</width>
+    <height>484</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+background-color: rgb(37, 37, 38);
+color: rgb(255, 255, 255);
+}
+QWidget .QPushButton {
+border:0px;
+background-color: rgb(37, 37, 38);
+}
+QWidget .QPushButton:hover {
+border:0px;
+background-color: rgb(0, 122, 204);
+}
+
+QLineEdit {
+border:1px solid rgb(67, 67, 70);
+background-color: rgb(51, 51, 55);
+color: rgb(255, 255, 255);
+}
+QLineEdit:disabled {
+border:1px solid rgb(67, 67, 70);
+background-color: rgb(45, 45, 48);
+color: rgb(255, 255, 255);
+}
+
+QWidget .QFrame {
+background-color: rgb(45, 45, 48);
+color: rgb(255, 255, 255);
+}
+QFrame .QPushButton {
+border:1px solid rgb(83, 83, 85);
+background-color: rgb(63, 63, 70);
+color: rgb(255, 255, 255);
+}
+QFrame .QPushButton:disabled {
+border: 1px solid rgb(61, 61, 67);
+background-color: rgb(45, 45, 48);
+}
+QFrame .QPushButton:hover {
+background-color: rgb(63, 63, 70);
+border: 1px solid rgb(5, 111, 182);
+}
+
+QTabWidget::pane {
+  border: 2px solid #FF8C94;
+  top:-1px; 
+  background: #2A363B;
+} 
+
+QTabBar::tab {
+  background: #A8E6CE;
+  color: black;
+  border: 1px solid #C06C84; 
+  padding: 15px;
+} 
+
+QTabBar::tab:selected { 
+  background: #A8E6CE;
+  margin-bottom: -1px; 
+}
+
+QListWidget QScrollBar
+{
+	background : #3d5a80;
+}
+QListView::item:hover
+{
+	border-radius: 5px;
+	background: #455054;
+}
+
+QListView::item:selected
+{
+	border : 2px solid #E5FCC2;
+	border-radius: 25px;
+	background : #023047;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QTabWidget" name="versionTabWidget">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="vanillaTab">
+          <attribute name="title">
+           <string>Vanilla</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QListWidget" name="vanillaList">
+             <item>
+              <property name="text">
+               <string>1.19.2</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="fabricTab">
+          <attribute name="title">
+           <string>Fabric</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QListWidget" name="fabricList"/>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

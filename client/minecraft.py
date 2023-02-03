@@ -98,7 +98,7 @@ class Forge():
             return 
         for i in jvm_versions:
             if select_jvm_ver == i:
-                minecraft_launcher_lib.install.install_jvm_runtime(jvm_version=i, minecraft_directory=minecraft_dir)        
+                # minecraft_launcher_lib.install.install_jvm_runtime(jvm_version=i, minecraft_directory=minecraft_dir)        
                 break
             
 

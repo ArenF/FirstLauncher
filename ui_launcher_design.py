@@ -8,6 +8,7 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
+from PyQt5.QtWebEngineWidgets import QWebEngineProfile, QWebEngineView
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -16,10 +17,17 @@ import resource_rc
 import sys
 import os
 import shutil
+import minecraft_launcher_lib
+import json
+import subprocess
 
-import client.authorization as auth
 import client.minecraft as mc
 
+CLIENT_ID = "dd82773a-d6be-47c6-82f7-30ff816cb255"
+CLIENT_SECRET = "AjN8Q~Ymlosb4wzUJDjqQpMH9Jr6RWWeF49Shdn9"
+REDIRECT_URL = "https://localhost/web-aerial"
+
+MINECRAFT_DIRECTORY = minecraft_launcher_lib.utils.get_minecraft_directory()
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -657,7 +665,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.setSpacing(0)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
-        self.cefWidget = QWidget(self)
+        self.cefWidget = LoginWindow(self)
         self.cefWidget.setObjectName(u"cefWidget")
 
         self.verticalLayout_7.addWidget(self.cefWidget)
@@ -1050,7 +1058,7 @@ class Ui_MainWindow(object):
         '''
         
         # floating button 생성
-        self.mainImage.floatingButtonSignal.connect(lambda: print("START"))
+        self.mainImage.floatingButtonSignal.connect(lambda: self.versionSelectWindow.show())
         
         
 
@@ -1074,6 +1082,19 @@ class Ui_MainWindow(object):
         self.versionManager = InstallManager()
         self.versionManager.default_set(self, self.versionsList, self.second_window)
         self.versionsList.itemDoubleClicked.connect(self.versionManager.doubleClickedItem)
+        
+        self.launchThread = LaunchThread()
+        self.launchManager = LaunchManager(self.launchThread, os.path.join(os.path.dirname(os.path.realpath(__file__)), "launching_option.json"))
+        
+        
+        self.versionSelectWindow = VersionLaunchWindow(self)
+        self.versionSelectManager = VersionSelectionManager()
+        
+        self.versionSelectManager.append_item_vanilla_versions(self.versionSelectWindow.vanillaList)
+        self.versionSelectManager.append_item_mods_versions(self.versionSelectWindow.fabricList)
+        
+        self.versionSelectWindow.version_ready.connect(lambda version: self.launchManager.launching(version))
+        
         
 # 버튼들
         button_clicked(self)
@@ -1324,6 +1345,185 @@ class PageManager(object):
         # else:
         #     self.stackedWidget.widget(0).float_button.show()
         
+# 런칭할 때 쓰레드를 활용하여 다른 UI를 숨기고 멈출 생각이다.
+class LaunchThread(QThread):
+    def __init__(self):
+        QThread.__init__(self)
+        
+    def set_option(self, options):
+        self.option = options
+        
+    def set_version(self, version):
+        self.version = version
+        
+    def run(self):
+        print("LAUNCHING")
+        minecraft_command = minecraft_launcher_lib.command.get_minecraft_command(self.version, MINECRAFT_DIRECTORY, self.option)
+        subprocess.call(minecraft_command)
+        QCoreApplication.instance().quit()
+            
+# 런칭 옵션 파일 생성 및 관리하는 클래스
+class LaunchManager(object):
+    
+    def __init__(self, launchThread, file) -> None:
+        self.launchThread = launchThread
+        self.file = file
+        # 파일이 존재하지 않거나, 파일이 비어있으면 데이터를 채웁니다.
+        if not os.path.exists(self.file):
+            self.createDefault()
+        elif self.file_is_empty(self.file):
+            self.createDefault()
+            
+    def file_is_empty(self, path):
+        return os.stat(path).st_size==0
+        
+    def set_data(self, key:str, value:object):
+        with open(self.file, 'r+') as f:
+            json_object = json.load(f)
+            
+            json_object[key] = value
+            
+            f.seek(0) 
+            json.dump(json_object, f, ensure_ascii=False, indent=4)
+            f.truncate()
+            f.close()
+            
+    def get_file(self):
+        return self.file
+    
+    def get_option(self):
+        with open(self.file, 'r') as f:
+            return json.load(f)
+        
+    def createDefault(self) -> None:
+        with open(self.file, "w", encoding="utf-8") as f:
+            option = {
+                # This is needed
+                "username":"",
+                "uuid":"",
+                "token":""
+                #This is optional
+                # "executablePath": "java", # The path to the java executable
+                # "defaultExecutablePath": "java", # The path to the java executable if the version.json has none
+                # "jvmArguments": [], #The jvmArguments
+                # "launcherName": "minecraft-launcher-lib", # The name of your launcher
+                # "launcherVersion": "1.0", # The version of your launcher
+                # "gameDirectory": "/home/user/.minecraft", # The gameDirectory (default is the path given in arguments)
+                # "demo": False, # Run Minecraft in demo mode
+                # "customResolution": False, # Enable custom resolution
+                # "resolutionWidth": "840", # The resolution width
+                # "resolutionHeight": "480", # The resolution heigth
+                # "server": "example.com", # The ip of a server where Minecraft connect to after start
+                # "port": "123", # The port of a server where Minecraft connect to after start
+                # "nativesDirectory": "minecraft_directory/versions/version/natives", # The natives directory
+                # "enableLoggingConfig": False, # Enable use of the log4j configuration file
+                # "disableMultiplayer": False, # Disables the multiplayer
+                # "disableChat": False # Disables the chat
+            }
+            json.dump(option, f, ensure_ascii=False, indent=4)
+            f.close()
+            
+    def launching(self, version):
+        self.launchThread.set_version(version)
+        self.launchThread.set_option(self.get_option())
+        self.launchThread.start()
+        
+class VersionSelectionManager(object):
+    
+    installed_vanilla_versions = []
+    installed_no_vanilla_versions = []
+    
+    def __init__(self):
+        self.installed_all_versions = minecraft_launcher_lib.utils.get_installed_versions(MINECRAFT_DIRECTORY)
+        for i in self.installed_all_versions:
+            ver = i["id"]
+            if 'fabric' in ver or 'forge' in ver:
+                self.installed_no_vanilla_versions.append(ver)
+            else:
+                self.installed_vanilla_versions.append(ver)
+    
+    def get_installed_vanilla(self):
+        return self.installed_vanilla_versions
+    
+    def get_installed_mods(self):
+        return self.installed_no_vanilla_versions
+    
+    def append_item_vanilla_versions(self, listWidget) -> None:
+        for i in self.get_installed_vanilla():
+            listWidget.addItem(i)
+    
+    def append_item_mods_versions(self, listWidget) -> None:
+        for i in self.get_installed_mods():
+            listWidget.addItem(i)
+            
+    
+    
+
+class LoginWindow(QWebEngineView):
+    def __init__(self, parent):
+        super().__init__(parent)
+        
+        self.parent_object = parent
+        self.refresh_token_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "refresh_token.json")
+
+        # Login with refresh token, if it exists
+        if os.path.isfile(self.refresh_token_file):
+            with open(self.refresh_token_file, "r", encoding="utf-8") as f:
+                refresh_token = json.load(f)
+                # Do the login with refresh token
+                try:
+                    account_information = minecraft_launcher_lib.microsoft_account.complete_refresh(CLIENT_ID, f, REDIRECT_URL, refresh_token)
+                    self.show_account_information(account_information)
+                # Show the window if the refresh token is invalid
+                except minecraft_launcher_lib.exceptions.InvalidRefreshToken:
+                    pass
+
+        # Open the login url
+        login_url, self.state, self.code_verifier = minecraft_launcher_lib.microsoft_account.get_secure_login_data(CLIENT_ID, REDIRECT_URL)
+        self.load(QUrl(login_url))
+
+        # Connects a function that is called when the url changed
+        self.urlChanged.connect(self.new_url)
+
+        self.show()
+        
+    def new_url(self, url: QUrl):
+        try:
+            # Get the code from the url
+            auth_code = minecraft_launcher_lib.microsoft_account.parse_auth_code_url(url.toString(), self.state)
+            # Do the login
+            account_information = minecraft_launcher_lib.microsoft_account.complete_login(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, auth_code, self.code_verifier)
+            # Show the login information
+            self.show_account_information(account_information)
+        except AssertionError:
+            print("States do not match!")
+        except KeyError:
+            print("Url not valid")
+            
+    def show_account_information(self, information_dict):
+        information_string = f'Username: {information_dict["name"]}<br>'
+        information_string += f'UUID: {information_dict["id"]}<br>'
+        information_string += f'Token: {information_dict["access_token"]}<br>'
+        
+        self.parent_object.launchManager.set_data("username", information_dict["name"])
+        self.parent_object.launchManager.set_data("uuid", information_dict["id"])
+        self.parent_object.launchManager.set_data("token", information_dict["access_token"])
+
+        # Save the refresh token in a file
+        with open(self.refresh_token_file, "w", encoding="utf-8") as f:
+            json.dump(information_dict["refresh_token"], f, ensure_ascii=False, indent=4)
+
+        # with open(self.launching_option, "w", encoding="utf-8") as file:
+        #     json.dump(information_dict, file, ensure_ascii=False, indent=4)
+
+        message_box = QMessageBox()
+        message_box.setWindowTitle("Account information")
+        message_box.setText(information_string)
+        message_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+        message_box.exec()
+
+        # Exit the program
+        
 # mods 파일용으로 제작된 DnD용 프레임
 class DragFrame(QFrame):
     def __init__(self, parent):
@@ -1464,6 +1664,186 @@ class Progress_Window(QMainWindow):
     def retranslateUi(self, Progressing):
         Progressing.setWindowTitle(QCoreApplication.translate("Progressing", u"Progress", None))
         self.label.setText(QCoreApplication.translate("Progressing", u"Progress..", None))
+    # retranslateUi
+    
+class VersionLaunchWindow(QMainWindow):
+    version_ready = pyqtSignal("QString")
+    
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.setupUi(self)
+    
+    def setupUi(self, VersionSelectWindow):
+        if not VersionSelectWindow.objectName():
+            VersionSelectWindow.setObjectName(u"VersionSelectWindow")
+        VersionSelectWindow.resize(683, 484)
+        VersionSelectWindow.setStyleSheet(u"QWidget {\n"
+"background-color: rgb(37, 37, 38);\n"
+"color: rgb(255, 255, 255);\n"
+"}\n"
+"QWidget .QPushButton {\n"
+"border:0px;\n"
+"background-color: rgb(37, 37, 38);\n"
+"}\n"
+"QWidget .QPushButton:hover {\n"
+"border:0px;\n"
+"background-color: rgb(0, 122, 204);\n"
+"}\n"
+"\n"
+"QLineEdit {\n"
+"border:1px solid rgb(67, 67, 70);\n"
+"background-color: rgb(51, 51, 55);\n"
+"color: rgb(255, 255, 255);\n"
+"}\n"
+"QLineEdit:disabled {\n"
+"border:1px solid rgb(67, 67, 70);\n"
+"background-color: rgb(45, 45, 48);\n"
+"color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QWidget .QFrame {\n"
+"background-color: rgb(45, 45, 48);\n"
+"color: rgb(255, 255, 255);\n"
+"}\n"
+"QFrame .QPushButton {\n"
+"border:1px solid rgb(83, 83, 85);\n"
+"background-color: rgb(63, 63, 70);\n"
+"color: rgb(255, 255, 255);\n"
+"}\n"
+"QFrame .QPushButton:disabled {\n"
+"border: 1px solid rgb(61, 61, 67);\n"
+"background-color: rgb(45, 45, 48);\n"
+"}\n"
+"QFrame .QPushButton:hover {\n"
+"background-color: rgb(63, 63, 70);\n"
+"border: 1px solid rgb(5, 111, 182);\n"
+"}\n"
+""
+                        "\n"
+"QTabWidget::pane {\n"
+"  border: 2px solid #FF8C94;\n"
+"  top:-1px; \n"
+"  background: #2A363B;\n"
+"} \n"
+"\n"
+"QTabBar::tab {\n"
+"  background: #A8E6CE;\n"
+"  color: black;\n"
+"  border: 1px solid #C06C84; \n"
+"  padding: 15px;\n"
+"} \n"
+"\n"
+"QTabBar::tab:selected { \n"
+"  background: #A8E6CE;\n"
+"  margin-bottom: -1px; \n"
+"}\n"
+"\n"
+"QListWidget QScrollBar\n"
+"{\n"
+"	background : #3d5a80;\n"
+"}\n"
+"QListView::item:hover\n"
+"{\n"
+"	border-radius: 5px;\n"
+"	background: #455054;\n"
+"}\n"
+"\n"
+"QListView::item:selected\n"
+"{\n"
+"	border : 2px solid #E5FCC2;\n"
+"	border-radius: 25px;\n"
+"	background : #023047;\n"
+"}")
+        self.centralwidget = QWidget(VersionSelectWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+        self.verticalLayout = QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setSpacing(0)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.frame = QFrame(self.centralwidget)
+        self.frame.setObjectName(u"frame")
+        self.frame.setFrameShape(QFrame.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_2 = QVBoxLayout(self.frame)
+        self.verticalLayout_2.setSpacing(0)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.versionTabWidget = QTabWidget(self.frame)
+        self.versionTabWidget.setObjectName(u"versionTabWidget")
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.versionTabWidget.sizePolicy().hasHeightForWidth())
+        self.versionTabWidget.setSizePolicy(sizePolicy)
+        self.versionTabWidget.setMaximumSize(QSize(16777215, 16777215))
+        self.versionTabWidget.setStyleSheet(u"")
+        self.vanillaTab = QWidget()
+        self.vanillaTab.setObjectName(u"vanillaTab")
+        self.verticalLayout_4 = QVBoxLayout(self.vanillaTab)
+        self.verticalLayout_4.setSpacing(0)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.vanillaList = QListWidget(self.vanillaTab)
+        QListWidgetItem(self.vanillaList)
+        self.vanillaList.setObjectName(u"vanillaList")
+
+        self.verticalLayout_4.addWidget(self.vanillaList)
+
+        self.versionTabWidget.addTab(self.vanillaTab, "")
+        self.fabricTab = QWidget()
+        self.fabricTab.setObjectName(u"fabricTab")
+        self.verticalLayout_3 = QVBoxLayout(self.fabricTab)
+        self.verticalLayout_3.setSpacing(0)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.fabricList = QListWidget(self.fabricTab)
+        self.fabricList.setObjectName(u"fabricList")
+
+        self.verticalLayout_3.addWidget(self.fabricList)
+
+        self.versionTabWidget.addTab(self.fabricTab, "")
+
+        self.verticalLayout_2.addWidget(self.versionTabWidget)
+
+
+        self.verticalLayout.addWidget(self.frame)
+
+        VersionSelectWindow.setCentralWidget(self.centralwidget)
+
+        self.retranslateUi(VersionSelectWindow)
+
+        self.versionTabWidget.setCurrentIndex(0)
+        
+        self.vanillaList.itemDoubleClicked.connect(self.doubleClickedVanilla)
+        self.fabricList.itemDoubleClicked.connect(self.doubleClickedMods)
+
+        QMetaObject.connectSlotsByName(VersionSelectWindow)
+    # setupUi
+    
+    def doubleClickedVanilla(self):
+        list_item = self.vanillaList.selectedItems()
+        for item in list_item:
+            text = item.text()
+            self.version_ready.emit(text)
+            
+            
+    def doubleClickedMods(self):
+        list_item = self.fabricList.selectedItems()
+        for item in list_item:
+            text = item.text()
+            self.version_ready.emit(text)
+            
+    def retranslateUi(self, VersionSelectWindow):
+        VersionSelectWindow.setWindowTitle(QCoreApplication.translate("VersionSelectWindow", u"MainWindow", None))
+
+        __sortingEnabled = self.vanillaList.isSortingEnabled()
+        self.vanillaList.setSortingEnabled(False)
+        ___qlistwidgetitem = self.vanillaList.item(0)
+        ___qlistwidgetitem.setText(QCoreApplication.translate("VersionSelectWindow", u"1.19.2", None))
+        self.vanillaList.setSortingEnabled(__sortingEnabled)
+
+        self.versionTabWidget.setTabText(self.versionTabWidget.indexOf(self.vanillaTab), QCoreApplication.translate("VersionSelectWindow", u"Vanilla", None))
+        self.versionTabWidget.setTabText(self.versionTabWidget.indexOf(self.fabricTab), QCoreApplication.translate("VersionSelectWindow", u"Fabric", None))
     # retranslateUi
 
 class WindowClass(QMainWindow, Ui_MainWindow):
